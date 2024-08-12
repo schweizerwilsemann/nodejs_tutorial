@@ -12,22 +12,29 @@
 // server.listen(port, hostname, () => {
 //     console.log(`Server running as http://${hostname}:${port}/`);
 // });
+require('dotenv').config();
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 8081;
+const path = require('path');
+const hostname = process.env.HOST_NAME;
 
-const express = require('express')
-const app = express()
-const port = 3000
+console.log(">>> check env: ", process.env); 
+//configuration template engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
-  res.send('Hello World')
+  res.send('Hello World');
 })
 
 app.get('/abc', function (req, res) {
-    res.send('Check abc')
+    res.send('Check abc');
 })
 
 app.get('/hellofromnew', function (req, res) {
-    res.send('<h1>Hello from new</h1>')
+    res.render('sample.ejs');
 })  
-app.listen(port, () => {
+app.listen(port,hostname, () => {
     console.log(`Example app listening on port ${port}`);
 })
