@@ -13,28 +13,19 @@
 //     console.log(`Server running as http://${hostname}:${port}/`);
 // });
 require('dotenv').config();
+const configViewEngine = require('./configuration/viewEngine.js')
+const webRoutes = require('./routes/web.js')
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 8081;
-const path = require('path');
 const hostname = process.env.HOST_NAME;
 
-console.log(">>> check env: ", process.env); 
-//configuration template engine
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+//config template engine
+configViewEngine(app);
 
-app.get('/', function (req, res) {
-  res.send('Hello World');
-})
+//declare route
+app.use('/',webRoutes);
 
-app.get('/abc', function (req, res) {
-    res.send('Check abc');
-})
-
-app.get('/hellofromnew', function (req, res) {
-    res.render('sample.ejs');
-})  
 app.listen(port,hostname, () => {
     console.log(`Example app listening on port ${port}`);
 })
