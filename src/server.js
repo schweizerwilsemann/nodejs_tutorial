@@ -12,10 +12,15 @@
 // server.listen(port, hostname, () => {
 //     console.log(`Server running as http://${hostname}:${port}/`);
 // });
+
+
 require('dotenv').config();
 const configViewEngine = require('./configuration/viewEngine.js')
 const webRoutes = require('./routes/web.js')
 const express = require('express');
+
+const connection = require('./configuration/database.js')
+
 const app = express();
 const port = process.env.PORT || 8081;
 const hostname = process.env.HOST_NAME;
@@ -25,6 +30,15 @@ configViewEngine(app);
 
 //declare route
 app.use('/',webRoutes);
+
+
+connection.query(
+    'SELECT * FROM Users',
+    function(err, results, fields){
+        console.log(">>>results = ",results);
+        console.log(">>>fields = ", fields);
+    }
+);
 
 app.listen(port,hostname, () => {
     console.log(`Example app listening on port ${port}`);
