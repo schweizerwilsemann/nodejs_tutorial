@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise.js');
 require('dotenv').config();
 
 //test connection
