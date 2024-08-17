@@ -11,7 +11,6 @@ const app = express();
 const port = process.env.PORT || 8081;
 const hostname = process.env.HOST_NAME;
 
-const Kitten = require('./models/kittens.js');
 
 
 //config res.body
@@ -24,8 +23,6 @@ configViewEngine(app);
 //declare route
 app.use('/',webRoutes);
 
-const cat = new Kitten({ name: 'my bunny cat' });
-cat.save();
 
 (async() => {
     try{
