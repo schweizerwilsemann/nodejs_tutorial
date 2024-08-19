@@ -18,6 +18,6 @@ const customerSchema = new mongoose.Schema({
     {timestamps: true}
 );
 
-const Customter = mongoose.model('Customer', userSchema);
+const Customter = mongoose.model('Customer', customerSchema);
 
 module.exports = Customter;
