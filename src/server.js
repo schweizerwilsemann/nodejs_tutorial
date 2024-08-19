@@ -2,6 +2,7 @@
 require('dotenv').config();
 const configViewEngine = require('./configuration/viewEngine.js')
 const webRoutes = require('./routes/web.js')
+const apiroutes = require('./routes/api.js')
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -22,6 +23,7 @@ configViewEngine(app);
 
 //declare route
 app.use('/',webRoutes);
+app.use('/v1/api/',apiroutes);
 
 
 (async() => {
