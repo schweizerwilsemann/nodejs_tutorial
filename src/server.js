@@ -5,6 +5,7 @@ const webRoutes = require('./routes/web.js')
 const apiroutes = require('./routes/api.js')
 const express = require('express');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload');
 
 const connection = require('./configuration/database.js')
 
@@ -12,7 +13,8 @@ const app = express();
 const port = process.env.PORT || 8081;
 const hostname = process.env.HOST_NAME;
 
-
+// config file upload
+app.use(fileUpload());
 
 //config res.body
 app.use(express.json());
