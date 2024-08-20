@@ -1,6 +1,10 @@
 const {uploadSingleFile} = require('../services/filesService');
-const {createCustomersService, createArrayCustomersService, getAllCustomersService, updateCustomersService} = require('../services/customersService');
-const { connection } = require('mongoose');
+const {createCustomersService, 
+    createArrayCustomersService, 
+    getAllCustomersService, 
+    updateCustomersService, 
+    deleteCustomersService, 
+    deleteArrayCustomersService} = require('../services/customersService');
 
 module.exports = {
     postCreateCustomers: async (req, res) => {
@@ -72,6 +76,22 @@ module.exports = {
         } else {
             return res.status(500).json(result);
         }
+    },
+    deleteCustomers: async (req, res) => {
+        const id = req.body.id;
+        let result = await deleteCustomersService(id);
+        return res.status(200).json({
+            errorCode: 0,
+            data: result
+        })
+    },
+    postDeleteArrayCustomers: async(req, res) => {
+        const arrayCustomersId  = req.body.customersId;
+        let results = await deleteArrayCustomersService(arrayCustomersId);
+        return res.status(200).json({
+            errorCode: 0,
+            data: results
+        })
     }
 
 }

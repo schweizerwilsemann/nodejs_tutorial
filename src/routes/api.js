@@ -1,7 +1,19 @@
 const express = require('express');
 const routerAPI = express.Router();
-const {getUsersAPI, postCreateUserAPI, putUpdateUserAPI, deleteUsersAPI, postUploadSingleFileAPI, postUploadMutipleFilesAPI} = require('../controllers/apiController.js');
-const {postCreateCustomers, postCreateArrayCustomers, getAllCustomers, updateCustomers} = require('../controllers/customersController.js');
+const {getUsersAPI, 
+    postCreateUserAPI, 
+    putUpdateUserAPI, 
+    deleteUsersAPI, 
+    postUploadSingleFileAPI, 
+    postUploadMutipleFilesAPI} = require('../controllers/apiController.js');
+
+
+const {postCreateCustomers, 
+    postCreateArrayCustomers, 
+    getAllCustomers, 
+    updateCustomers, 
+    deleteCustomers,
+    postDeleteArrayCustomers} = require('../controllers/customersController.js');
 
 routerAPI.get('/users', getUsersAPI);
 routerAPI.post('/users', postCreateUserAPI);
@@ -16,5 +28,7 @@ routerAPI.post('/customers', postCreateCustomers);
 routerAPI.post('/customers-many', postCreateArrayCustomers);
 routerAPI.get('/customers', getAllCustomers);
 routerAPI.put('/customers', updateCustomers);
+routerAPI.delete('/customers', deleteCustomers);
+routerAPI.delete('/customers-many', postDeleteArrayCustomers);
 
 module.exports = routerAPI;
