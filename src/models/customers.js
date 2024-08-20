@@ -5,7 +5,7 @@ const customerSchema = new mongoose.Schema({
         // auto generate: _id: uuid
         name: {
             type: String,
-            require: true,
+            required: true,
             
         },
         email: String,

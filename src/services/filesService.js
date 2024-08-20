@@ -11,7 +11,7 @@ const uploadSingleFile = async (fileObject) => {
         const newFileName = `${fileName}-${Date.now()}${fileExt}`;
 
             // Tạo đường dẫn lưu file mới
-        let uploadPath = path.join(__dirname, '..', 'public', 'images', newFileName)
+        let uploadPath = path.join(__dirname, '..', 'public', 'images', 'upload', newFileName)
         await fileObject.mv(uploadPath);
         return {
             status: 'success',
@@ -32,7 +32,7 @@ const uploadSingleFile = async (fileObject) => {
 const uploadMultipleFiles = async (filesArray) => {
     console.log(">>> check files array: ", filesArray);
     try {
-        let uploadPath = path.resolve(__dirname, '../public/images');
+        let uploadPath = path.resolve(__dirname, '../public/images/upload');
         let resultArray = [];
         let countSuccess = 0;
 
@@ -52,7 +52,7 @@ const uploadMultipleFiles = async (filesArray) => {
                 await filesArray[i].mv(finalPath);
                 resultArray.push({
                     status: 'success',
-                    path: `/public/images/${newFileName}`,
+                    path: `/public/images/upload${newFileName}`,
                     fileName: filesArray[i].name,
                     error: null 
                 });
