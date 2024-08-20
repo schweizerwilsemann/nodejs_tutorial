@@ -1,4 +1,5 @@
 const customers = require('../models/customers');
+const aqp = require('api-query-params');
 
 
 const createCustomersService = async (customerData) => {
@@ -28,17 +29,35 @@ const createArrayCustomersService = async (customersArray) => {
     }
 }
 
-const getAllCustomersService = async () => {
-    try{
-        const result = await customers.find({});
+const getAllCustomersService = async (limit, page, name, queryString) => {
+    try {
+        let result = null;
+        
+        if (limit && page) {
+            let offset = (page - 1) * limit;
+            const {filter} = aqp(queryString)
+            
+            delete filter.page;
+            console.log(">>> check filter: ", filter);
+            result = await customers.find(filter).skip(offset).limit(limit).exec();
+            // if (name) {
+            //     result = await customers.find({
+            //         "name": { $regex: '.*' + name + '.*', $options: 'i' } // Thêm $options: 'i' để tìm kiếm không phân biệt chữ hoa/thường
+            //     }).skip(offset).limit(limit).exec();
+            // } else {
+            //     result = await customers.find({}).skip(offset).limit(limit).exec();
+            // }
+
+        } else {
+            result = await customers.find({});
+        }
+
         return result;
-    }
-    catch(error){
+    } catch (error) {
         console.log(">>> error: ", error);
         return null;
     }
 }
-
 const updateCustomersService = async (id, name, email, address) => { 
     try {
         let customer = await customers.updateOne({_id: id}, {name: name, email: email, address: address});

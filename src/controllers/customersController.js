@@ -6,6 +6,7 @@ const {createCustomersService,
     deleteCustomersService, 
     deleteArrayCustomersService} = require('../services/customersService');
 
+
 module.exports = {
     postCreateCustomers: async (req, res) => {
     //     name: {
@@ -54,7 +55,16 @@ module.exports = {
         }
     },
     getAllCustomers: async (req, res) => {
-        let results = await getAllCustomersService();
+        
+        const limit = req.query.limit;
+        const page = req.query.page;
+        let results = null;
+        let name = req.query.name;
+        if(limit && page){
+            results = await getAllCustomersService(limit, page, name, req.query);
+        }
+        else
+        results = await getAllCustomersService(limit, page);
         if(results){
             return res.status(200).json({
                 errorCode: 0,
