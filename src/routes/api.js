@@ -15,6 +15,8 @@ const {postCreateCustomers,
     deleteCustomers,
     postDeleteArrayCustomers} = require('../controllers/customersController.js');
 
+const {postCreateProjects} = require('../controllers/projectController.js');
+
 routerAPI.get('/users', getUsersAPI);
 routerAPI.post('/users', postCreateUserAPI);
 routerAPI.put('/users', putUpdateUserAPI);
@@ -30,6 +32,11 @@ routerAPI.get('/customers', getAllCustomers);
 routerAPI.put('/customers', updateCustomers);
 routerAPI.delete('/customers', deleteCustomers);
 routerAPI.delete('/customers-many', postDeleteArrayCustomers);
+
+
+routerAPI.post('/projects', postCreateProjects);
+
+
 
 routerAPI.get('/info', (req, res) => {
     console.log(">>> check query: ", req.query);
